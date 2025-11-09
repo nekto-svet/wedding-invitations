@@ -27,6 +27,7 @@ jobs:
       - name: Build project
         env:
           VITE_MAKE_WEBHOOK_URL: ${{ secrets.MAKE_WEBHOOK_URL }}
+          VITE_MAKE_SUBMIT_WEBHOOK_URL: ${{ secrets.MAKE_SUBMIT_WEBHOOK_URL }}
         run: npm run build
 
       - name: Configure AWS credentials

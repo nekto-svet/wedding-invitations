@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { translations } from './translations'
 
-const MAKE_WEBHOOK_URL = import.meta.env.VITE_MAKE_WEBHOOK_URL || 'https://hook.us1.make.com/YOUR_WEBHOOK_ID'
+const MAKE_WEBHOOK_URL = import.meta.env.VITE_MAKE_WEBHOOK_URL || 'https://hook.eu1.make.com/756yxbomqcl3seu137flfscixiqsmank'
+const MAKE_SUBMIT_WEBHOOK_URL = import.meta.env.VITE_MAKE_SUBMIT_WEBHOOK_URL || "https://hook.eu1.make.com/rhfeo9jdjdy1bbs701h4h51uxts4v0u8"
 
 function InvitationPage() {
   const { lang, username } = useParams()
@@ -20,21 +21,67 @@ function InvitationPage() {
     fetchUserData()
   }, [username])
 
+  const getData = async (data) => {
+    try {
+      const response = await fetch(MAKE_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      if (response.ok) {
+        return await response.json()
+      }
+    } catch (err) {
+      console.log('Webhook call failed:', err)
+      throw err
+    }
+  }
+
   const fetchUserData = async () => {
     try {
       setLoading(true)
-      // Replace with your Make webhook URL to fetch user data
-      // This is optional - if not configured, the form will still work
-      const response = await fetch(`${MAKE_WEBHOOK_URL}?action=get&username=${username}`)
-      if (response.ok) {
-        const data = await response.json()
-        setUserData(data)
+      // Fetch user data using POST with userId
+      const data = await getData({ userId: username })
+      if (data) {
+        setUserData(data);
+        console.log(data);
       }
     } catch (err) {
       // Silently fail - form will still work without user data
       console.log('User data fetch optional:', err)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const submitAnswer = async (answer, number) => {
+    try {
+      const response = await fetch(MAKE_SUBMIT_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: username,
+          answer: answer,
+          number: number,
+          recordId: userData.Id,
+        })
+      })
+      // Make webhooks might return various status codes, so we check if request was sent
+      if (response.status >= 400) {
+        const errorText = await response.text().catch(() => 'Unknown error')
+        console.error('Webhook error:', response.status, errorText)
+        throw new Error(`Webhook returned status ${response.status}`)
+      }
+      // Try to parse JSON, but don't fail if it's not JSON
+      try {
+        return await response.json()
+      } catch {
+        // Webhook might not return JSON, that's okay
+        return { success: true }
+      }
+    } catch (err) {
+      console.error('Answer submission failed:', err)
+      throw err
     }
   }
 
@@ -45,20 +92,21 @@ function InvitationPage() {
     if (willCome === 'yes' && !peopleCount) return
 
     setSubmitting(true)
+    setError(null) // Clear any previous errors
     try {
-      const response = await fetch(MAKE_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username,
-          willCome: willCome === 'yes',
-          peopleCount: willCome === 'yes' ? parseInt(peopleCount) : 0
-        })
-      })
-      if (!response.ok) throw new Error('Failed to submit')
+      const answer = willCome === 'yes'
+      const number = willCome === 'yes' ? parseInt(peopleCount) : 0
+      
+      console.log('Submitting answer:', { userId: username, answer, number })
+      
+      // Submit answer to Make webhook
+      await submitAnswer(answer, number)
+      
+      console.log('Answer submitted successfully')
       setSubmitted(true)
       setError(null)
     } catch (err) {
+      console.error('Submit error:', err)
       setError(t.error)
     } finally {
       setSubmitting(false)
@@ -76,7 +124,7 @@ function InvitationPage() {
 
   return (
     <div className="container">
-      <h1>{t.hello}, {username}!</h1>
+      <h1>{t.hello}, {userData.Name}!</h1>
       <h2>{t.question}</h2>
 
       {submitted ? (
