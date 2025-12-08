@@ -11,7 +11,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
 }
 
 .container {
@@ -117,6 +116,97 @@ button:disabled {
   text-align: center;
 }
 
+.first-invitation {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/20250902_151102.jpg');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+.first-invitation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.first-invitation-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  max-width: 600px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.first-invitation-content h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.first-invitation-content p {
+  font-size: 20px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.invitation-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.calendar-link,
+.waze-link {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.calendar-link {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.waze-link {
+  background: linear-gradient(135deg, #33CCFF 0%, #0066CC 100%);
+}
+
+.calendar-link:hover,
+.waze-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.calendar-link:active,
+.waze-link:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 600px) {
   .container {
     padding: 30px 20px;
@@ -128,6 +218,24 @@ button:disabled {
 
   h2 {
     font-size: 18px;
+  }
+
+  .first-invitation-content {
+    padding: 30px 20px;
+  }
+
+  .first-invitation-content h1 {
+    font-size: 28px;
+  }
+
+  .first-invitation-content p {
+    font-size: 18px;
+  }
+
+  .calendar-link,
+  .waze-link {
+    font-size: 16px;
+    padding: 12px 24px;
   }
 }
 

@@ -9,7 +9,12 @@ export const translations = {
     loading: 'Загрузка...',
     error: 'Ошибка загрузки данных',
     success: 'Спасибо! Ваш ответ отправлен.',
-    selectOption: 'Выберите...'
+    selectOption: 'Выберите...',
+    invitationTitle: 'Свадьба Светы и Йоси',
+    invitationText: 'Мы рады пригласить вас на нашу свадьбу!',
+    text2: 'Свадьба состоится 8 февраля 2026 года в 19:00 в Havat Allenby Kibutz Natzrat Serniy',
+    addToCalendar: 'Добавить в календарь',
+    openInWaze: 'Открыть в Waze'
   },
   heb: {
     hello: 'שלום',
@@ -21,7 +26,12 @@ export const translations = {
     loading: 'טוען...',
     error: 'שגיאה בטעינת נתונים',
     success: 'תודה! התשובה שלך נשלחה.',
-    selectOption: 'בחר...'
+    selectOption: 'בחר...',
+    invitationTitle: 'חתונה של סבטה ויוסי',
+    invitationText: 'אנחנו שמחים להזמין אתכם לחתונה שלנו!',
+    text2: 'שתתקיים בתאריך ה-8 בפברואר 2026 בשעה 17:00 בבחוות אלנבית קיבוק נצר סרני',
+    addToCalendar: 'הוסף ליומן',
+    openInWaze: 'פתח ב-Waze'
   }
 }
 
