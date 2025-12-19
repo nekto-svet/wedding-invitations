@@ -159,13 +159,13 @@ button:disabled {
 .first-invitation-content h1 {
   margin-top: 20px;
   font-size: 36px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: green;
   /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
 }
 
 .first-invitation-content p {
-  font-size: 20px;
+  font-size: 15px;
   margin-bottom: 10px;
   line-height: 1.6;
   /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); */
@@ -183,9 +183,9 @@ button:disabled {
 .waze-link {
   /* display: inline-block; */
   /* margin: 0 50px; */
-  padding: 30px 10px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 23px 0px;
+  font-size: 15px;
+  font-weight: 500;
   color: white;
   border-radius: 80px;
   text-decoration: none;
@@ -196,7 +196,7 @@ button:disabled {
 
 .calendar-link {
   background: linear-gradient(135deg, #9f327f 0%, #601f3f 100%);
-  margin-right: 70px;
+  margin: 0px 70px 0px 20px;
   margin-bottom: -20px;
   position: relative;
   z-index: 2;
@@ -204,7 +204,7 @@ button:disabled {
 
 .waze-link {
   background: linear-gradient(135deg, #29ad55 0%, #105c1e 100%);
-  margin-left: 130px;
+  margin: 0px 20px 0px 130px;
   border-radius: 999px;
   position: relative;
   z-index: 1;
@@ -239,11 +239,7 @@ button:disabled {
   } */
 
   .first-invitation-content h1 {
-    font-size: 28px;
-  }
-
-  .first-invitation-content p {
-    font-size: 18px;
+    font-size: 25px;
   }
 }
 
