@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   display: flex;
@@ -121,7 +121,7 @@ button:disabled {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url('/20250902_151102.jpg');
+  background-image: url('/20250902_151104.jpg');
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,7 +129,7 @@ button:disabled {
   position: relative;
 }
 
-.first-invitation::before {
+/* .first-invitation::before {
   content: '';
   position: absolute;
   top: 0;
@@ -138,50 +138,56 @@ button:disabled {
   bottom: 0;
   background: rgba(0, 0, 0, 0.2);
   z-index: 1;
-}
+} */
 
 .first-invitation-content {
+  margin-top: 40px;
+  padding: 10px;
   position: relative;
   z-index: 2;
   text-align: center;
-  color: white;
-  max-width: 600px;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: green;
+  background-color: white;
+  border-radius: 90px;
+  /* max-width: 600px; */
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* backdrop-filter: blur(20px); */
+  /* border-radius: 20px; */
+  /* border: 1px solid rgba(255, 255, 255, 0.2); */
 }
 
 .first-invitation-content h1 {
+  margin-top: 20px;
   font-size: 36px;
   margin-bottom: 20px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: green;
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
 }
 
 .first-invitation-content p {
   font-size: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   line-height: 1.6;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); */
 }
 
 .invitation-links {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 0;
   margin-top: 20px;
+  position: relative;
 }
 
 .calendar-link,
 .waze-link {
-  display: inline-block;
-  padding: 14px 28px;
-  font-size: 18px;
+  /* display: inline-block; */
+  /* margin: 0 50px; */
+  padding: 30px 10px;
+  font-size: 16px;
   font-weight: 600;
   color: white;
-  border-radius: 8px;
+  border-radius: 80px;
   text-decoration: none;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -189,11 +195,19 @@ button:disabled {
 }
 
 .calendar-link {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #9f327f 0%, #601f3f 100%);
+  margin-right: 70px;
+  margin-bottom: -20px;
+  position: relative;
+  z-index: 2;
 }
 
 .waze-link {
-  background: linear-gradient(135deg, #33CCFF 0%, #0066CC 100%);
+  background: linear-gradient(135deg, #29ad55 0%, #105c1e 100%);
+  margin-left: 130px;
+  border-radius: 999px;
+  position: relative;
+  z-index: 1;
 }
 
 .calendar-link:hover,
@@ -220,9 +234,9 @@ button:disabled {
     font-size: 18px;
   }
 
-  .first-invitation-content {
+  /* .first-invitation-content {
     padding: 30px 20px;
-  }
+  } */
 
   .first-invitation-content h1 {
     font-size: 28px;
@@ -230,12 +244,6 @@ button:disabled {
 
   .first-invitation-content p {
     font-size: 18px;
-  }
-
-  .calendar-link,
-  .waze-link {
-    font-size: 16px;
-    padding: 12px 24px;
   }
 }
 
