@@ -12,6 +12,7 @@ function FirstInvitation() {
   const [userData, setUserData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [showContent, setShowContent] = useState(false)
 
   const fetchUserData = useCallback(async () => {
     try {
@@ -54,6 +55,17 @@ function FirstInvitation() {
     }
   }, [])
 
+  // Add 0.3 second delay after both image and user data are loaded
+  useEffect(() => {
+    if (!loading && imageLoaded) {
+      const timer = setTimeout(() => {
+        setShowContent(true)
+      }, 300) // 0.3 seconds = 100ms
+      
+      return () => clearTimeout(timer)
+    }
+  }, [loading, imageLoaded])
+
   // Location details - update with your coordinates
   const locationName = 'Havat Allenby Kibbutz Natzer Sereni'
   const latitude = 31.925588
@@ -72,7 +84,7 @@ function FirstInvitation() {
   // Waze link with coordinates
   const wazeUrl = `https://www.waze.com/ul?q=${latitude},${longitude}&navigate=yes`
 
-  const isLoading = loading || !imageLoaded
+  const isLoading = loading || !imageLoaded || !showContent
 
   if (isLoading) {
     return (
