@@ -116,6 +116,44 @@ button:disabled {
   text-align: center;
 }
 
+.first-invitation-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner {
+  font-size: 60px;
+  color: #29ad55;
+  line-height: 1;
+  animation: heartbeat 1.2s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.05);
+  }
+}
+
+.loading-text {
+  margin-top: 20px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .first-invitation {
   min-height: 100vh;
   background-size: cover;

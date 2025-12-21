@@ -1,13 +1,61 @@
 import { useParams } from 'react-router-dom'
 import { translations } from './translations'
+import { useState, useEffect, useCallback } from 'react'
+
+const MAKE_WEBHOOK_URL = import.meta.env.VITE_MAKE_WEBHOOK_URL || 'https://hook.eu1.make.com/756yxbomqcl3seu137flfscixiqsmank'
 
 function FirstInvitation() {
   const { lang, username } = useParams()
   const langKey = lang?.toLowerCase() === 'heb' ? 'heb' : 'ru'
   const t = translations[langKey]
+  
+  const [userData, setUserData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  const fetchUserData = useCallback(async () => {
+    try {
+      setLoading(true)
+      // Fetch user data using POST with userId
+      const response = await fetch(MAKE_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: username })
+      })
+      if (response.ok) {
+        const data = await response.json()
+        if (data) {
+          setUserData(data)
+          console.log(data)
+        }
+      }
+    } catch (err) {
+      // Silently fail - form will still work without user data
+      console.log('User data fetch optional:', err)
+    } finally {
+      setLoading(false)
+    }
+  }, [username])
+
+  useEffect(() => {
+    fetchUserData()
+  }, [fetchUserData])
+
+  // Preload background image
+  useEffect(() => {
+    const img = new Image()
+    img.src = '/20250902_151104.jpg'
+    img.onload = () => {
+      setImageLoaded(true)
+    }
+    img.onerror = () => {
+      // If image fails to load, still show content
+      setImageLoaded(true)
+    }
+  }, [])
 
   // Location details - update with your coordinates
-  const locationName = 'Havat Allenby Kibutz Natzrat Serniy'
+  const locationName = 'Havat Allenby Kibbutz Natzer Sereni'
   const latitude = 31.925588
   const longitude = 34.827163
   
@@ -16,7 +64,7 @@ function FirstInvitation() {
   const eventDetails = encodeURIComponent(`${t.invitationText}\n\n${t.text2}\n\nLocation: ${locationName}\nCoordinates: ${latitude}, ${longitude}`)
   const eventLocation = encodeURIComponent(`${locationName} (${latitude}, ${longitude})`)
   const eventDate = '20260208T190000' // Format: YYYYMMDDTHHMMSS
-  const eventEndDate = '20260208T240000'
+  const eventEndDate = '20260208T235959'
   
   // Google Calendar URL with location
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${eventDate}/${eventEndDate}&details=${eventDetails}&location=${eventLocation}`
@@ -24,11 +72,41 @@ function FirstInvitation() {
   // Waze link with coordinates
   const wazeUrl = `https://www.waze.com/ul?q=${latitude},${longitude}&navigate=yes`
 
+  const isLoading = loading || !imageLoaded
+
+  if (isLoading) {
+    return (
+      <div className="first-invitation-loading">
+        <div className="loading-spinner">💚</div>
+        <p className="loading-text">{t.loading}</p>
+      </div>
+    )
+  }
+
+  const displayName = userData?.Name || username
+  
+  // Check if name is single word (no spaces)
+  const isSingleWord = displayName.trim().split(/\s+/).length === 1
+
+  // Create personalized invitation text
+  let personalizedText = `${displayName}, ${t.invitationText}`
+  
+  if (isSingleWord) {
+    if (langKey === 'heb') {
+      // Replace אתכם (plural) with אותך (singular)
+      personalizedText = personalizedText.replace('אתכם', 'אותך')
+    } else {
+      // Replace вы/вас (plural/formal) with ты/тебя (singular/informal)
+      personalizedText = personalizedText.replace(/\bвы\b/gi, 'ты')
+      personalizedText = personalizedText.replace('вас', 'тебя')
+    }
+  }
+
   return (
     <div className="first-invitation">
       <div className="first-invitation-content">
         <h1>{t.invitationTitle}</h1>
-        <p>{t.invitationText}</p>
+        <p>{personalizedText}</p>
         <p>{t.text2}</p>
         <div className="invitation-links">
           <a 
