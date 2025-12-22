@@ -67,14 +67,14 @@ function FirstInvitation() {
   }, [loading, imageLoaded])
 
   // Location details - update with your coordinates
-  const locationName = 'Havat Allenby Kibbutz Natzer Sereni'
+  const locationName = 'Havat Allenby, Kibbutz Netzer Sereni'
   const latitude = 31.925588
   const longitude = 34.827163
   
   // Google Calendar link with location and geopoint
   const eventTitle = encodeURIComponent(t.invitationTitle)
   const eventDetails = encodeURIComponent(`${t.invitationText}\n\n${t.text2Date}\n${t.text2Place}\n\nLocation: ${locationName}\nCoordinates: ${latitude}, ${longitude}`)
-  const eventLocation = encodeURIComponent(`${locationName} (${latitude}, ${longitude})`)
+  const eventLocation = encodeURIComponent(`${locationName}`)
   const eventDate = '20260208T190000' // Format: YYYYMMDDTHHMMSS
   const eventEndDate = '20260208T235959'
   
