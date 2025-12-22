@@ -73,7 +73,7 @@ function FirstInvitation() {
   
   // Google Calendar link with location and geopoint
   const eventTitle = encodeURIComponent(t.invitationTitle)
-  const eventDetails = encodeURIComponent(`${t.invitationText}\n\n${t.text2}\n\nLocation: ${locationName}\nCoordinates: ${latitude}, ${longitude}`)
+  const eventDetails = encodeURIComponent(`${t.invitationText}\n\n${t.text2Date}\n${t.text2Place}\n\nLocation: ${locationName}\nCoordinates: ${latitude}, ${longitude}`)
   const eventLocation = encodeURIComponent(`${locationName} (${latitude}, ${longitude})`)
   const eventDate = '20260208T190000' // Format: YYYYMMDDTHHMMSS
   const eventEndDate = '20260208T235959'
@@ -119,7 +119,30 @@ function FirstInvitation() {
       <div className="first-invitation-content">
         <h1>{t.invitationTitle}</h1>
         <p>{personalizedText}</p>
-        <p>{t.text2}</p>
+        <div className={`invitation-details ${langKey === 'heb' ? 'align-right' : 'align-left'}`}>
+          <p className="detail-item">
+            {langKey === 'heb' ? (
+              <>
+                {t.text2Date} 📅
+              </>
+            ) : (
+              <>
+                📅 {t.text2Date}
+              </>
+            )}
+          </p>
+          <p className="detail-item">
+            {langKey === 'heb' ? (
+              <>
+                {t.text2Place} 📍
+              </>
+            ) : (
+              <>
+                📍 {t.text2Place}
+              </>
+            )}
+          </p>
+        </div>
         <div className="invitation-links">
           <a 
             href={googleCalendarUrl} 
