@@ -33,7 +33,7 @@ export const translations = {
     text2Date: '8 בפברואר 2026 בשעה 17:00',
     text2Place: 'חוות אלנבי קיבוק נצר סרני',
     addToCalendar: 'הוסף ליומן',
-    openInWaze: 'פתח ב-Waze'
+    openInWaze: 'Waze -פתח ב'
   }
 }
 
