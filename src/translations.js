@@ -30,7 +30,7 @@ export const translations = {
     selectOption: 'בחר...',
     invitationTitle: 'חתונה של סבטה ויוסי',
     invitationText: 'אנחנו שמחים להזמין אתכם לחתונה שלנו',
-    text2Date: '8 בפברואר 2026 בשעה 17:00',
+    text2Date: 'ה-8 בפברואר 2026 בשעה 17:00',
     text2Place: 'חוות אלנבי קיבוק נצר סרני',
     addToCalendar: 'הוסף ליומן',
     openInWaze: 'Waze -פתח ב'
