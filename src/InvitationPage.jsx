@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { translations } from './translations'
 
@@ -10,12 +10,30 @@ function InvitationPage() {
   const langKey = lang?.toLowerCase() === 'heb' ? 'heb' : 'ru'
   const t = translations[langKey]
   const [loading, setLoading] = useState(true)
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const [showContent, setShowContent] = useState(false)
   const [error, setError] = useState(null)
   const [userData, setUserData] = useState(null)
   const [willCome, setWillCome] = useState('')
   const [peopleCount, setPeopleCount] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+
+  // Preload background image
+  useEffect(() => {
+    const img = new Image()
+    img.src = '/20250902_151105.jpg'
+    img.onload = () => setImageLoaded(true)
+    img.onerror = () => setImageLoaded(true)
+  }, [])
+
+  // Add delay after both image and data are loaded
+  useEffect(() => {
+    if (!loading && imageLoaded) {
+      const timer = setTimeout(() => setShowContent(true), 300)
+      return () => clearTimeout(timer)
+    }
+  }, [loading, imageLoaded])
 
   useEffect(() => {
     fetchUserData()
@@ -87,15 +105,13 @@ function InvitationPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!willCome) return
-
-    if (willCome === 'yes' && !peopleCount) return
+    if (!peopleCount) return
 
     setSubmitting(true)
     setError(null) // Clear any previous errors
     try {
-      const answer = willCome === 'yes'
-      const number = willCome === 'yes' ? parseInt(peopleCount) : 0
+      const answer = peopleCount !== 'no'
+      const number = peopleCount === 'no' ? 0 : parseInt(peopleCount)
       
       console.log('Submitting answer:', { userId: username, answer, number })
       
@@ -113,44 +129,36 @@ function InvitationPage() {
     }
   }
 
-  if (loading) {
+  const isLoading = loading || !imageLoaded || !showContent
+
+  if (isLoading) {
     return (
-      <div className="container">
-        <div className="loading">{t.loading}</div>
+      <div className="first-invitation-loading">
+        <div className="loading-spinner">💚</div>
+        <p className="loading-text">{t.loading}</p>
       </div>
     )
   }
 
-
   return (
-    <div className="container">
-      <h1>{t.hello}, {userData.Name}!</h1>
-      <h2>{t.question}</h2>
+    <div className="invitation-page-background">
+      <div className={`invitation-page-content ${langKey === 'heb' ? 'rtl' : ''}`}>
+      <h1>{t.hello}, {userData.Name}</h1>
 
       {submitted ? (
         <div className="success">{t.success}</div>
       ) : (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>{t.question}</label>
-            <select value={willCome} onChange={(e) => setWillCome(e.target.value)} required>
+            <label>{t.howMany}</label>
+            <select value={peopleCount} onChange={(e) => setPeopleCount(e.target.value)} required>
               <option value="">{t.selectOption}</option>
-              <option value="yes">{t.yes}</option>
               <option value="no">{t.no}</option>
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                <option key={num} value={num}>{num}</option>
+              ))}
             </select>
           </div>
-
-          {willCome === 'yes' && (
-            <div className="form-group">
-              <label>{t.howMany}</label>
-              <select value={peopleCount} onChange={(e) => setPeopleCount(e.target.value)} required>
-                <option value="">{t.selectOption}</option>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                  <option key={num} value={num}>{num}</option>
-                ))}
-              </select>
-            </div>
-          )}
 
           {error && <div className="error">{error}</div>}
 
@@ -159,6 +167,39 @@ function InvitationPage() {
           </button>
         </form>
       )}
+
+      <div className="carpool-section">
+        <h3>{t.carpoolTitle}</h3>
+        <p>{t.carpoolOffer}</p>
+        <p>{t.carpoolNeed}</p>
+        <a 
+          href="https://docs.google.com/spreadsheets/d/1T_d-wPz0ye8bpQHptLFnrMlUtY6onswRxPhlwUMjwOY/edit?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="carpool-link"
+        >
+          {t.carpoolLink}
+        </a>
+      </div>
+
+      <div className="invitation-details align-center">
+        <p className="detail-item">
+          {langKey === 'heb' ? <>{t.text2Date} 📅</> : <>📅 {t.text2Date}</>}
+        </p>
+        <p className="detail-item">
+          {langKey === 'heb' ? <>{t.text2Place} 📍</> : <>📍 {t.text2Place}</>}
+        </p>
+      </div>
+
+      <a 
+        href="https://www.waze.com/ul?q=31.925588,34.827163&navigate=yes"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="waze-link submitted-waze"
+      >
+        {t.openInWaze}
+      </a>
+      </div>
     </div>
   )
 }

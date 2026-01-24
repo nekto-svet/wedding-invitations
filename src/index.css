@@ -209,7 +209,7 @@ button:disabled {
 }
 
 .invitation-details {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .invitation-details.align-left {
@@ -220,11 +220,20 @@ button:disabled {
   text-align: right;
 }
 
+.invitation-details.align-center {
+  text-align: center;
+}
+
+.invitation-details.align-center .detail-item {
+  justify-content: center;
+}
+
 .detail-item {
   margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 14px;
 }
 
 .invitation-details.align-left .detail-item {
@@ -283,6 +292,88 @@ button:disabled {
 .calendar-link:active,
 .waze-link:active {
   transform: translateY(0);
+}
+
+.invitation-page-background {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #29ad55 0%, #105c1e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invitation-page-content {
+  background: white;
+  border-radius: 90px;
+  padding: 40px;
+  width: 100%;
+  min-height: calc(100vh - 40px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.invitation-page-content h1,
+.invitation-page-content h2,
+.invitation-page-content label {
+  color: green;
+}
+
+.invitation-page-content select {
+  border-radius: 80px;
+  width: 280px;
+}
+
+.invitation-page-content button {
+  background: linear-gradient(135deg, #9f327f 0%, #601f3f 100%);
+  border-radius: 80px;
+  width: 280px;
+}
+
+.invitation-page-content .success {
+  border-radius: 80px;
+}
+
+.invitation-page-content.rtl select {
+  text-align: right;
+  direction: rtl;
+}
+
+.submitted-waze {
+  display: inline-block;
+  margin: 0px 0;
+  background: linear-gradient(135deg, #9f327f 0%, #601f3f 100%);
+  padding: 15px 60px;
+  border-radius: 80px;
+}
+
+.carpool-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.carpool-section h3 {
+  color: green;
+  margin-bottom: 10px;
+}
+
+.carpool-section p {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.carpool-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #29ad55 0%, #105c1e 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 80px;
+  font-weight: 500;
 }
 
 @media (max-width: 600px) {

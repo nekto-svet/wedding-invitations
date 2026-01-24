@@ -1,10 +1,10 @@
 export const translations = {
   ru: {
-    hello: 'привет',
-    question: 'придешь ли ты к нам на свадьбу?',
-    yes: 'да',
-    no: 'нет',
-    howMany: 'Сколько человек будет?',
+    hello: 'Привет',
+    question: 'Придете ли вы к нам на свадьбу?',
+    yes: 'Да',
+    no: 'Не придем',
+    howMany: 'Сколько человек придут на свадьбу?',
     submit: 'Отправить',
     loading: 'Загрузка...',
     error: 'Ошибка загрузки данных',
@@ -15,14 +15,18 @@ export const translations = {
     text2Date: '8 февраля 2026 года в 19:00',
     text2Place: 'Havat Allenby, Kibbutz Netzer Sereni',
     addToCalendar: 'Добавить в календарь',
-    openInWaze: 'Открыть в Waze'
+    openInWaze: 'Открыть в Waze',
+    carpoolTitle: '🚗 Подвозки',
+    carpoolOffer: 'Есть место в машине? Запишитесь в таблицу, чтобы помочь другим гостям!',
+    carpoolNeed: 'Нужна подвозка? Найдите попутчиков из вашего города или напишите в таблицу.',
+    carpoolLink: 'Открыть таблицу'
   },
   heb: {
     hello: 'שלום',
-    question: 'האם תגיע לחתונה שלנו?',
+    question: '? האם תגיעו לחתונה שלנו',
     yes: 'כן',
-    no: 'לא',
-    howMany: 'כמה אנשים יהיו?',
+    no: 'לא נגיע',
+    howMany: 'כמה אנשים יהיו לחתונה שלנו?',
     submit: 'שלח',
     loading: 'טוען...',
     error: 'שגיאה בטעינת נתונים',
@@ -33,7 +37,11 @@ export const translations = {
     text2Date: 'ה-8 בפברואר 2026 בשעה 19:00',
     text2Place: 'חוות אלנבי, קיבוץ נצר סרני',
     addToCalendar: 'הוסף ליומן',
-    openInWaze: 'Waze -פתח ב'
+    openInWaze: 'Waze -פתח ב',
+    carpoolTitle: '🚗 טרמפים',
+    carpoolOffer: 'יש לכם מקום פנוי ברכב? בבקשה עזרו לאחרים והירשמו לרשימת הטרמפים',
+    carpoolNeed: 'צריכים טרמפ? מצאו נוסעים מהעיר שלכם או השאירו בקשה בטבלה',
+    carpoolLink: 'טבלת טרמפים'
   }
 }
 
