@@ -26,7 +26,7 @@ export const translations = {
     question: '? האם תגיעו לחתונה שלנו',
     yes: 'כן',
     no: 'לא נגיע',
-    howMany: 'כמה אנשים יהיו לחתונה שלנו?',
+    howMany: 'כמה אנשים יגיעו לחתונה שלנו?',
     submit: 'שלח',
     loading: 'טוען...',
     error: 'שגיאה בטעינת נתונים',
